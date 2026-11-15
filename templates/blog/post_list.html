@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="margin: 0; color: #ffffff;">Últimos Reviews e Notícias</h2>
+        <a href="{% url 'post_create' %}"  style=" color: #ff4343; font-weight: bold; font-size: 1.2em; border: none;""> <u>+ Adicionar Jogo</u></a>
+    </div>
+    <hr style="border-color: #333; margin-bottom: 20px;">
+
+    <div>
+        {% for post in posts %}
+            <article style="background: #2c2c2c; margin-bottom: 15px; padding: 15px; border-left: 5px solid #6200ea; border-radius: 4px;">
+                <h3 style="margin: 0 0 10px 0;">
+                    <a href="{% url 'post_detail' post.pk %}" style="color: #ffffff; font-size: 1.3em;">{{ post.titulo }}</a>
+                </h3>
+                <p style="color: #aaa; font-size: 0.9em; margin: 0;">📅 Publicado em {{ post.data_postagem|date:"d/m/Y" }}</p>
+            </article>
+        {% empty %}
+            <p>Nenhum jogo avaliado ainda. Aperte Start e crie o primeiro post!</p>
+        {% endfor %}
+    </div>
+{% endblock %}
