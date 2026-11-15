@@ -13,7 +13,7 @@
                 <h3 style="margin: 0 0 10px 0;">
                     <a href="{% url 'post_detail' post.pk %}" style="color: #ffffff; font-size: 1.3em;">{{ post.titulo }}</a>
                 </h3>
-                <p style="color: #aaa; font-size: 0.9em; margin: 0;">📅 Publicado em {{ post.data_postagem|date:"d/m/Y" }}</p>
+                <p style="color: #aaa; font-size: 0.9em; margin: 0;"> Publicado em {{ post.data_postagem|date:"d/m/Y" }}</p>
             </article>
         {% empty %}
             <p>Nenhum jogo avaliado ainda. Aperte Start e crie o primeiro post!</p>
