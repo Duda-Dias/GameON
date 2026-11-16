@@ -10,6 +10,14 @@
     <hr style="border-color: #333; margin-bottom: 20px;">
 
     <div>
+        {% if categoria_atual %}
+            <div style="margin: 20px 30px; padding-bottom: 10px; border-bottom: 2px solid #b94eb4;">
+                <h2 style="color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif;">
+                    Explorar jogos de: <span style="color: #99b94e;">{{ categoria_atual.nome }}</span>
+                </h2>
+                <p style="color: #cccccc;">{{ categoria_atual.descricao }}</p>
+            </div>
+        {% endif %}
         {% for post in posts %}
             <article style="background: #2c2c2c; margin-bottom: 15px; padding: 15px; border-left: 5px solid #6200ea; border-radius: 4px;">
                 <h3 style="margin: 0 0 10px 0;">
@@ -18,7 +26,7 @@
                 <p style="color: #aaa; font-size: 0.9em; margin: 0;"> Publicado em {{ post.data_postagem|date:"d/m/Y" }}</p>
             </article>
         {% empty %}
-            <p>Nenhum jogo avaliado ainda. Aperte Start e crie o primeiro post!</p>
+            <p>Nenhum jogo avaliado ainda.</p>
         {% endfor %}
     </div>
 {% endblock %}

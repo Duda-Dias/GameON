@@ -15,15 +15,19 @@
 <body>
     <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; border-bottom: 2px solid #00cc00;">
         
-        <!-- 1. Lado esquerdo invisível -->
-        <div style="flex: 1;"></div>
 
-        <!-- 2. Centro: O seu Título do site -->
-        <div style="flex: 1; text-align: center;">
-            <h1 style="margin: 0; color: #4ea8b9; letter-spacing: 2px;">GAME ON!</h1>
+        <div style="flex: 1; text-align: left; font-family: 'Segoe UI', Arial, sans-serif;">
+            <a href="{% url 'category_list' %}" style="color: #ffffff; text-decoration: none; font-weight: bold; font-size: 1.1em;">Categorias</a>
         </div>
 
-        <!-- 3. Lado direito: O seu botão de Login ou Nome de Utilizador -->
+
+        <div style="flex: 1; text-align: center;">
+            <a href="{% url 'post_list' %}" style="text-decoration: none;">
+                <h1 style="margin: 0; color: #4ea8b9; letter-spacing: 2px; font-size: 1.8em;">GAME ON!</h1>
+            </a>
+        </div>
+
+
         <div style="flex: 1; text-align: right; font-family: 'Segoe UI', Arial, sans-serif;">
             {% if user.is_authenticated %}
                 <span style="color: #ffffff; font-size: 1.2em; font-weight: bold;">Oi, {{ user.username }}!</span>

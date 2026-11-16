@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="margin: 20px;">
+        <h2 style="color: #ffffff; font-family: 'Segoe UI', Arial, sans-serif;">Categorias de Jogos</h2>
+        <ul style="color: #cccccc; font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.8;">
+            {% for categoria in categorias %}
+                <li>
+                    <a href="{% url 'category_detail' pk=categoria.pk %}" style="color: #38e140; font-weight: bold; text-decoration: none;">
+                        {{ categoria.nome }}
+                    </a> - {{ categoria.descricao }}
+                </li>
+            {% empty %}
+                <li>Ainda não existem categorias registadas. </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

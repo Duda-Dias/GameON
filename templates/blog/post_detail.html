@@ -6,6 +6,16 @@
     <p style="color: #aaa;">Postado em {{ post.data_postagem|date:"d/m/Y" }} às {{ post.data_postagem|date:"H:i" }}</p>
     <p style="color: #aaa; font-size: 0.9em;"> Publicado por: <strong>{{ post.autor.username }}</strong></p>
 
+    <div style="margin-top: 10px; margin-bottom: 20px; font-family: 'Segoe UI', Arial, sans-serif;">
+        <span style="color: #cccccc; font-weight: bold;">Categorias:</span>
+        {% for cat in post.categorias.all %}
+            <a href="{% url 'category_detail' pk=cat.pk %}" style="background-color: #e8d47d; color: #000000; padding: 3px 8px; border-radius: 4px; text-decoration: underline; font-size: 0.9em; margin-right: 5px;">
+                {{ cat.nome }}
+            </a>
+        {% empty %}
+            <span style="color: #888888; font-size: 0.9em;">Sem categoria</span>
+        {% endfor %}
+    </div>
 
     {% if post.imagem_url %}
         <img src="{{ post.imagem_url }}" alt="Capa de {{ post.titulo }}" style="max-width: 100%; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">

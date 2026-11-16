@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Comment
+from .models import Post, Comment, Category
 from .forms import PostForm, CommentForm 
 from django.contrib.auth.decorators import login_required
 
@@ -50,3 +50,16 @@ def add_comment_to_post(request, pk):
     else:
         form = CommentForm()
     return render(request, 'blog/comment_form.html', {'form': form})
+
+def category_list(request):
+    categorias = Category.objects.all()
+    return render(request, 'blog/category_list.html', {'categorias': categorias})
+
+def category_detail(request, pk):
+    categoria = get_object_or_404(Category, pk=pk)
+    posts = categoria.posts.all()
+    
+    return render(request, 'blog/post_list.html', {
+        'posts': posts, 
+        'categoria_atual': categoria
+    })
