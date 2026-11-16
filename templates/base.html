@@ -13,8 +13,25 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1><a href="{% url 'post_list' %}">Game On!</a></h1>
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; border-bottom: 2px solid #00cc00;">
+        
+        <!-- 1. Lado esquerdo invisível -->
+        <div style="flex: 1;"></div>
+
+        <!-- 2. Centro: O seu Título do site -->
+        <div style="flex: 1; text-align: center;">
+            <h1 style="margin: 0; color: #4ea8b9; letter-spacing: 2px;">GAME ON!</h1>
+        </div>
+
+        <!-- 3. Lado direito: O seu botão de Login ou Nome de Utilizador -->
+        <div style="flex: 1; text-align: right; font-family: 'Segoe UI', Arial, sans-serif;">
+            {% if user.is_authenticated %}
+                <span style="color: #ffffff; font-size: 1.2em; font-weight: bold;">Oi, {{ user.username }}!</span>
+            {% else %}
+                <a href="/admin/login/" style="color: #f25050; font-size: 1.2em; font-weight: bold; text-decoration: none;">Login</a>
+            {% endif %}
+        </div>
+
     </header>
     
     <main>

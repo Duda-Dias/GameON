@@ -4,6 +4,7 @@
 
     <h2>{{ post.titulo }}</h2>
     <p style="color: #aaa;">Postado em {{ post.data_postagem|date:"d/m/Y" }} às {{ post.data_postagem|date:"H:i" }}</p>
+    <p style="color: #aaa; font-size: 0.9em;"> Publicado por: <strong>{{ post.autor.username }}</strong></p>
 
 
     {% if post.imagem_url %}
@@ -15,9 +16,11 @@
         {{ post.conteudo|safe }}
     </div>
 
-
-    <a href="{% url 'post_update' post.pk %}" class="btn" style="background-color: #ab66ff; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">Editar</a>
-    <a href="{% url 'post_delete' post.pk %}" class="btn" style="background-color: #cf6679; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">Remover</a>
+    {% if user == post.autor %}
+        <a href="{% url 'post_update' post.pk %}" class="btn" style="background-color: #ab66ff; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">Editar</a>
+        <a href="{% url 'post_delete' post.pk %}" class="btn" style="background-color: #cf6679; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">Apagar</a>
+    {% endif %}
+    
     <a href="{% url 'post_list' %}" class="btn" style="background-color: #73b874; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">Voltar para a lista</a>
 
 
@@ -25,20 +28,21 @@
     
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <h3 style="color: #ffffff;">Comentários da Comunidade</h3>
-        <a href="{% url 'add_comment_to_post' post.pk %}" class="btn" style="background-color: #7fbfe2; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">+ Adicionar Comentário</a>
-    </div>
-
-    <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 style="color: #ffffff;">Comentários da Comunidade</h3>
         
         {% if user.is_authenticated %}
             <a href="{% url 'add_comment_to_post' post.pk %}" class="btn" style="background-color: #7fbfe2; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">+ Adicionar Comentário</a>
         {% else %}
-            <p style="color: #aaa;">Faça <a href="/admin/login/" style="color: #7fbfe2; text-decoration: underline;">login</a> para participar da discussão.</p>
-            <p style="margin: 0; color: #e0e0e0;">{{ comentario.texto }}</p>
+            <p style="color: #aaa;">Faça <a href="/admin/login/" style="color: #ba93e5; text-decoration: underline;">login</a> para comentar.</p>
         {% endif %}
     </div>
-            
+
+    {% for comentario in post.comentarios.all|dictsortreversed:"data_postagem" %}
+        <div style="background: #2c2c2c; padding: 15px; margin-top: 15px; border-left: 3px solid #03dac6; border-radius: 4px;">
+            <p style="margin: 0 0 10px 0; color: #ffffff;">
+                <strong>{{ comentario.autor.username }}</strong> 
+                <span style="color: #aaa; font-size: 0.8em;"> - {{ comentario.data_postagem|date:"d/m/Y" }} às {{ comentario.data_postagem|date:"H:i" }}</span>
+            </p>
+            <p style="margin: 0; color: #e0e0e0;">{{ comentario.texto }}</p>
         </div>
     {% empty %}
         <p style="margin-top: 15px; color: #aaa;">Ainda não há comentários. Seja o primeiro a deixar a sua opinião!</p>
