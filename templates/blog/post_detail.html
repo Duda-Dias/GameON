@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2>{{ post.titulo }}</h2>
+    <p style="color: #aaa;">Postado em {{ post.data_postagem|date:"d/m/Y" }} às {{ post.data_postagem|date:"H:i" }}</p>
+
+
+    {% if post.imagem_url %}
+        <img src="{{ post.imagem_url }}" alt="Capa de {{ post.titulo }}" style="max-width: 100%; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+    {% endif %}
+
+
+    <div style="background: #2c2c2c; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+        {{ post.conteudo|safe }}
+    </div>
+
+
+    <a href="{% url 'post_update' post.pk %}" class="btn" style="background-color: #ab66ff; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">Editar</a>
+    <a href="{% url 'post_delete' post.pk %}" class="btn" style="background-color: #cf6679; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">Remover</a>
+    <a href="{% url 'post_list' %}" class="btn" style="background-color: #73b874; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">Voltar para a lista</a>
+
+
+    <hr style="border-color: #333; margin-top: 40px; margin-bottom: 20px;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="color: #ffffff;">Comentários da Comunidade</h3>
+        <a href="{% url 'add_comment_to_post' post.pk %}" class="btn" style="background-color: #7fbfe2; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">+ Adicionar Comentário</a>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="color: #ffffff;">Comentários da Comunidade</h3>
+        
+        {% if user.is_authenticated %}
+            <a href="{% url 'add_comment_to_post' post.pk %}" class="btn" style="background-color: #7fbfe2; color: #000; padding: 8px 12px; text-decoration: none; border-radius: 4px;">+ Adicionar Comentário</a>
+        {% else %}
+            <p style="color: #aaa;">Faça <a href="/admin/login/" style="color: #7fbfe2; text-decoration: underline;">login</a> para participar da discussão.</p>
+            <p style="margin: 0; color: #e0e0e0;">{{ comentario.texto }}</p>
+        {% endif %}
+    </div>
+            
+        </div>
+    {% empty %}
+        <p style="margin-top: 15px; color: #aaa;">Ainda não há comentários. Seja o primeiro a deixar a sua opinião!</p>
+    {% endfor %}
+{% endblock %}

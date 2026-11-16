@@ -9,9 +9,7 @@
         
         {{ form.as_p }}
         
-        <label for="conteudo">Conteúdo (Tags HTML permitidas):</label><br>
-        <textarea id="conteudo" name="conteudo" rows="10" cols="50" required>{{ post.conteudo|default_if_none:'' }}</textarea><br><br>
-        
+
         <button type="submit">Salvar</button>
     </form>
     

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2 style="color: #ffffff;">Adicionar Comentário</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn" style="background-color: #03dac6; color: #000;">Publicar</button>
+    </form>
+    
+    <br>
+    <a href="javascript:history.back()">Cancelar</a>
+{% endblock %}
